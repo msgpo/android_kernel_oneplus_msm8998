@@ -4,6 +4,7 @@
  *  Copyright (C) 1991, 1992  Linus Torvalds
  */
 
+#include <linux/capability.h>
 #include <linux/export.h>
 #include <linux/mm.h>
 #include <linux/errno.h>
