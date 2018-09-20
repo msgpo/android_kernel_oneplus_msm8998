@@ -396,6 +396,20 @@ bool ns_capable(struct user_namespace *ns, int cap)
 }
 EXPORT_SYMBOL(ns_capable);
 
+bool ns_capable_nolog(struct user_namespace *ns, int cap)
+{
+	if (unlikely(!cap_valid(cap))) {
+		printk(KERN_CRIT "capable_nolog() called with invalid cap=%u\n", cap);
+		BUG();
+	}
+	if (security_capable_noaudit(current_cred(), ns, cap) == 0) {
+		current->flags |= PF_SUPERPRIV;
+		return true;
+	}
+	return false;
+}
+EXPORT_SYMBOL(ns_capable_nolog);
+
 /**
  * ns_capable_noaudit - Determine if the current task has a superior capability
  * (unaudited) in effect
@@ -429,6 +443,12 @@ bool capable(int cap)
 	return ns_capable(&init_user_ns, cap);
 }
 EXPORT_SYMBOL(capable);
+
+bool capable_nolog(int cap)
+{
+	return ns_capable_nolog(&init_user_ns, cap);
+}
+EXPORT_SYMBOL(capable_nolog);
 #endif /* CONFIG_MULTIUSER */
 
 /**
