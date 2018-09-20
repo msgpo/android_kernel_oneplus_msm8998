@@ -8774,7 +8774,7 @@ static int hdd_platform_wlan_mac(hdd_context_t *hdd_ctx)
 	uint32_t max_mac_addr = QDF_MAX_CONCURRENCY_PERSONA;
 	uint32_t mac_addr_size = QDF_MAC_ADDR_SIZE;
 	uint8_t *addr, *buf;
-u8	addr_random[QDF_MAX_CONCURRENCY_PERSONA * QDF_MAC_ADDR_SIZE];
+	u8 addr_random[QDF_MAX_CONCURRENCY_PERSONA * QDF_MAC_ADDR_SIZE];
 	struct device *dev = hdd_ctx->parent_dev;
 	struct hdd_config *ini = hdd_ctx->config;
 	tSirMacAddr mac_addr;
